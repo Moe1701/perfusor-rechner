@@ -1,0 +1,36 @@
+Projektstruktur:
+├── .gitignore
+├── .oxlintrc.json
+├── code-context.txt
+├── generate-context.js
+├── index.html
+├── journal.md
+├── Master Prompt.txt
+├── package-lock.json
+├── package.json
+├── public
+│   ├── favicon.svg
+│   └── icons.svg
+├── README.md
+├── repomix und structure.txt
+├── src
+│   ├── App.jsx
+│   ├── assets
+│   │   ├── hero.png
+│   │   ├── react.svg
+│   │   └── vite.svg
+│   ├── components
+│   │   ├── calculator
+│   │   │   ├── BaseDataSection.jsx
+│   │   │   └── RatesSection.jsx
+│   │   └── ui
+│   │       ├── InputGroup.jsx
+│   │       └── Tile.jsx
+│   ├── hooks
+│   │   └── usePerfusor.js
+│   ├── main.jsx
+│   ├── styles
+│   │   └── globals.css
+│   └── utils
+│       └── mathUtils.js
+└── vite.config.js
