@@ -1,0 +1,1 @@
+npx repomix --include "src/**/*.js,src/**/*.jsx,src/**/*.css" --ignore "src/assets/**,*.svg" --output code-context.txt
