@@ -91,9 +91,15 @@ body {
 .input-group.no-label label { display: none; }
 .input-group.no-label .input-wrapper { flex: 1; }
 
-.input-wrapper { display: flex; align-items: center; flex: 1; }
+.input-wrapper { 
+    display: flex; 
+    align-items: center; 
+    flex: 1; 
+    justify-content: flex-end; /* Schiebt das verkürzte Feld nach rechts zur Einheit */
+}
 .input-wrapper input {
     width: 100%;
+    max-width: 130px; /* Macht die Felder in den Basisdaten kürzer */
     font-size: 18px; 
     font-weight: 600;
     padding: 10px 6px; 
@@ -107,18 +113,32 @@ body {
 
 .unit { margin-left: 6px; font-size: 0.95rem; font-weight: 500; color: var(--text-muted); flex: 0 0 75px; }
 
-.rates-grid .input-wrapper input { font-size: 16px; padding: 8px 4px; }
-.rates-grid .unit { font-size: 0.75rem; flex: 0 0 55px; margin-left: 4px; }
+.rates-grid .input-wrapper input { 
+    font-size: 16px; 
+    padding: 8px 4px; 
+    max-width: 100%; /* Hebt die 130px Begrenzung der Basisdaten hier im Grid wieder auf */
+    text-align: center; /* Zentriert die Zahlen optisch unter der Einheit */
+}
+.rates-grid .unit { 
+    font-size: 0.75rem; 
+    flex: none; /* Hebt die feste Breite der Einheit auf */
+    margin-left: 0; 
+    margin-bottom: 4px; /* Kleiner Abstand zum Eingabefeld darunter */
+    text-align: center;
+}
 .rates-grid .input-group { 
-    flex: 1; /* MAGIE: Zwingt die 3 Felder dazu, den Platz in der Kachel exakt unter sich aufzuteilen */
+    flex: 1; 
     display: flex;
     flex-direction: column; 
     align-items: stretch; 
-    justify-content: center; /* Zentriert die Box sauber in ihrem Drittel */
+    justify-content: center; 
     gap: 4px; 
     margin-bottom: 0; 
 }
-.rates-grid .input-wrapper { flex-direction: row; }
+.rates-grid .input-wrapper { 
+    flex-direction: column-reverse; /* MAGIE: Zieht die HTML-nachfolgende Einheit optisch ÜBER das Feld! */
+    align-items: stretch; 
+}
 
 /* Modal Styles */
 .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.4); display: flex; justify-content: center; align-items: center; z-index: 1000; padding: 20px; backdrop-filter: blur(4px); }
