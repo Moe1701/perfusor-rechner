@@ -16,6 +16,12 @@ export const InputGroup = ({ id, label, value, unit, onChange, highlight = false
                 id={id}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
+                onFocus={(e) => e.target.select()}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                        e.target.blur();
+                    }
+                }}
                 placeholder="0"
                 step="any"
                 inputMode="decimal"
