@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { usePerfusor } from './hooks/usePerfusor';
 import { BaseDataSection } from './components/calculator/BaseDataSection';
 import { RatesSection } from './components/calculator/RatesSection';
@@ -9,8 +9,16 @@ export default function App() {
     
     // Developer Features State & Refs
     const [showCrosshair, setShowCrosshair] = useState(false);
+    const [screenSize, setScreenSize] = useState({ w: window.innerWidth, h: window.innerHeight });
     const clickCount = useRef(0);
     const clickTimer = useRef(null);
+
+    // Fenstergröße für die Fadenkreuz-Skala überwachen
+    useEffect(() => {
+        const handleResize = () => setScreenSize({ w: window.innerWidth, h: window.innerHeight });
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const performHardReset = async () => {
         alert("Hard Reset eingeleitet: Alle Caches und lokalen Daten werden gelöscht...");
@@ -74,7 +82,7 @@ export default function App() {
                 <div className="crosshair-wrapper">
                     <div className="crosshair-x"></div>
                     <div className="crosshair-y"></div>
-                    <div className="crosshair-center">0/0</div>
+                    <div className="crosshair-center">{screenSize.w} x {screenSize.h} px</div>
                 </div>
             )}
 
