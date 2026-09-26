@@ -81,7 +81,7 @@ body {
     margin-bottom: 0; 
     display: flex; 
     flex-direction: column; 
-    justify-content: space-evenly; /* Verteilt die Eingabefelder gleichmäßig, damit keine Lücken entstehen */
+    gap: 8px; /* Sorgt für einen sauberen Grundabstand */
 }
 
 .input-group { margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
@@ -109,7 +109,15 @@ body {
 
 .rates-grid .input-wrapper input { font-size: 16px; padding: 8px 4px; }
 .rates-grid .unit { font-size: 0.75rem; flex: 0 0 55px; margin-left: 4px; }
-.rates-grid .input-group { flex-direction: column; align-items: stretch; gap: 2px; margin-bottom: 0; }
+.rates-grid .input-group { 
+    flex: 1; /* MAGIE: Zwingt die 3 Felder dazu, den Platz in der Kachel exakt unter sich aufzuteilen */
+    display: flex;
+    flex-direction: column; 
+    align-items: stretch; 
+    justify-content: center; /* Zentriert die Box sauber in ihrem Drittel */
+    gap: 4px; 
+    margin-bottom: 0; 
+}
 .rates-grid .input-wrapper { flex-direction: row; }
 
 /* Modal Styles */
