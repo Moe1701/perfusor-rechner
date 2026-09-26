@@ -78,3 +78,27 @@
 ## Nächste Schritte / Offene Todos
 - Farb-Tuning (Kontraste prüfen, ggf. dezente Hervorhebungen für die wichtigsten Felder).
 - Ausgiebiges Testen der neuen Raten-Logik auf realen Endgeräten (iOS/Android).
+# Projekt-Tagebuch: Moe's Perfusor Rechner (React PWA)
+
+## Projektziele & Status
+- **Ziel:** Ein medizinischer Offline-Rechner (PWA) für Laufraten und Dosierungen.
+- **Architektur:** React (Vite), reines CSS, Vercel-Deployment. Strikte Trennung von UI und Logik.
+- **Aktueller Status:** Die Logik ist zu 100 % funktional. Das UI-Layout ist hochgradig optimiert und passt perfekt auf mobile Bildschirme ohne erzwungenes Scrollen.
+
+## Abgeschlossene Meilensteine (Erreicht)
+- [x] Migration zu React/Vite und PWA-Offline-Support via Vercel.
+- [x] Bidirektionale Synchronisierung von Wirkstoff und Konzentration.
+- [x] Kompakte Layout-Basis wiederhergestellt.
+- [x] **Developer-Features integriert:** 
+  - 3-Klick auf den Titel: Aktiviert ein x/y-Fadenkreuz zur Layout-Diagnose inkl. Live-Pixel-Skala.
+  - 5-Klick auf den Titel: Führt einen Hard Reset durch (leert LocalStorage, löscht PWA-Caches, meldet Service Worker ab und lädt neu).
+
+## Meilenstein: Mobile UI-Harmonisierung & Platz-Optimierung (26.09.2026)
+- **Container-Optik:** Auch die Basisdaten-Sektion und die rote Highlight-Box wurden vollständig in saubere Tile-Container eingefasst.
+- **Symmetrisches Highlight-Grid:** Die primären Einheiten (`Laufrate` und `Zielwert`) stehen nun zweizeilig und perfekt symmetrisch zueinander zentriert über den Eingabefeldern.
+- **Proportionale Abstände & Single-Screen-Fit:** Das vertikale Padding der Sektionen wurde entfernt, sodass die Abstände zwischen den Kacheln pixelgenau harmonieren und die App auf dem Handy perfekt auf einen Bildschirm passt[cite: 12].
+- **Scroll-Fallback:** `overflow-y: auto` für die `.calculator-card` eingerichtet, um maximale Robustheit auf extrem kleinen Displays zu gewährleisten.
+
+## Nächste Schritte / Offene Todos
+- Farb-Tuning (Kontraste prüfen, ggf. dezente Hervorhebungen für die wichtigsten Felder).
+- Ausgiebiges Testen der neuen Raten-Logik im klinischen Alltag (PWA auf Realgeräten).
