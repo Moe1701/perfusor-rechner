@@ -18,10 +18,11 @@ body {
     background-color: var(--bg-body);
     color: var(--text-dark);
     margin: 0;
-    padding: 5px; /* Noch kompakter */
+    padding: 10px; 
     display: flex;
     justify-content: center;
     overscroll-behavior-y: none;
+    min-height: 100vh; 
 }
 
 .calculator-card {
@@ -31,39 +32,45 @@ body {
     width: 100%;
     max-width: 540px; 
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
-.header { padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); }
-.header h1 { margin: 0; font-size: 1.1rem; font-weight: 500; color: var(--primary-red); text-transform: uppercase; text-align: center; flex: 1; }
-.header-btn { background: none; border: 1px solid var(--border-light); color: var(--text-muted); padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; cursor: pointer; }
+.header { 
+    padding: 15px 20px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    border-bottom: 1px solid var(--border-light); 
+}
 
-/* Sektionen kompakter machen */
-.section { padding: 10px 15px; border-bottom: 1px solid var(--border-light); }
-.section:last-child { border-bottom: none; }
-.section-title { font-size: 0.8rem; text-transform: uppercase; color: var(--primary-red); font-weight: 600; margin-bottom: 10px; }
+.header h1 { margin: 0; font-size: 1.15rem; font-weight: 500; color: var(--primary-red); text-transform: uppercase; text-align: center; flex: 1; }
+.header-btn { background: none; border: 1px solid var(--border-light); color: var(--text-muted); padding: 6px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; cursor: pointer; }
 
-.tile { background-color: var(--bg-tile); border-radius: var(--radius-tile); padding: 10px; margin-bottom: 10px; border: 1px solid #f0f0f0; }
-.tile-highlight { background-color: #fff9f9; border: 1px solid #ffebeb; padding: 12px; }
-.tile-title { font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 8px; text-align: center; line-height: 1.2; }
+.section { padding: 15px 20px; border-bottom: 1px solid var(--border-light); }
+.section:last-child { border-bottom: none; flex-grow: 1; }
+.section-title { font-size: 0.9rem; text-transform: uppercase; color: var(--primary-red); font-weight: 600; margin-bottom: 15px; }
 
-/* Grid für die beiden Kacheln nebeneinander */
-.rates-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.tile { background-color: var(--bg-tile); border-radius: var(--radius-tile); padding: 15px; margin-bottom: 15px; border: 1px solid #f0f0f0; }
+.tile-highlight { background-color: #fff9f9; border: 1px solid #ffebeb; padding: 15px; }
+.tile-title { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 12px; text-align: center; line-height: 1.3; }
+
+.rates-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .rates-grid .tile { margin-bottom: 0; }
 
-.input-group { margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
+.input-group { margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; }
 .input-group:last-child { margin-bottom: 0; }
-.input-group label { font-size: 1.1rem; font-weight: 500; flex: 0 0 75px; }
+.input-group label { font-size: 1.15rem; font-weight: 500; flex: 0 0 85px; }
 
-/* Wenn kein Label da ist (für Dosis) */
 .input-group.no-label label { display: none; }
 .input-group.no-label .input-wrapper { flex: 1; }
 
 .input-wrapper { display: flex; align-items: center; flex: 1; }
 .input-wrapper input {
     width: 100%;
-    font-size: 18px; 
+    font-size: 22px; 
     font-weight: 600;
-    padding: 10px 6px; 
+    padding: 14px 10px; 
     border: 1px solid var(--border-light); 
     border-radius: var(--radius-input);
     text-align: right;
@@ -72,15 +79,15 @@ body {
 }
 .input-wrapper input:focus { outline: none; border-color: #ffbaba; box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.05); }
 
-.unit { margin-left: 6px; font-size: 0.95rem; font-weight: 500; color: var(--text-muted); flex: 0 0 75px; }
+.unit { margin-left: 8px; font-size: 1.05rem; font-weight: 500; color: var(--text-muted); flex: 0 0 75px; }
 
-/* Schriftgrößen-Anpassung für die Grid-Kacheln (damit es auf kleine Handys passt) */
-.rates-grid .input-wrapper input { font-size: 16px; padding: 8px 4px; }
-.rates-grid .unit { font-size: 0.75rem; flex: 0 0 55px; margin-left: 4px; }
-.rates-grid .input-group { flex-direction: column; align-items: stretch; gap: 2px; margin-bottom: 10px; }
+/* Die harmonischen Proportionen für die unteren Kacheln */
+.rates-grid .input-wrapper input { font-size: 19px; padding: 12px 8px; }
+.rates-grid .unit { font-size: 0.85rem; flex: 0 0 65px; margin-left: 6px; }
+.rates-grid .input-group { flex-direction: column; align-items: stretch; gap: 4px; margin-bottom: 14px; }
 .rates-grid .input-wrapper { flex-direction: row; }
 
-/* Info Modal bleibt gleich */
+/* Modal Styles */
 .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.4); display: flex; justify-content: center; align-items: center; z-index: 1000; padding: 20px; backdrop-filter: blur(4px); }
 .modal-content { background-color: var(--surface-white); border-radius: var(--radius-card); padding: 20px; max-width: 400px; width: 100%; }
 .modal-content h2 { margin-top: 0; color: var(--primary-red); font-size: 1.1rem; }
