@@ -45,27 +45,51 @@ body {
     flex-direction: column;
     flex-grow: 1;
     height: 100%; 
-    /* Kopfzeile klebt jetzt wieder ganz oben am Rand! */
 }
 
+/* =========================================
+   Kopfzeile (Höher & Eleganter)
+   ========================================= */
 .header { 
-    padding: 16px 20px; /* Höhere, elegantere Kopfzeile */
+    padding: 24px 20px; 
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
     border-bottom: 1px solid var(--border-light); 
+    background-color: var(--surface-white);
 }
-.header h1 { margin: 0; font-size: 1.1rem; font-weight: 500; color: var(--primary-red); text-transform: uppercase; text-align: center; flex: 1; }
-.header-btn { background: none; border: 1px solid var(--border-light); color: var(--text-muted); padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; cursor: pointer; }
+.header h1 { 
+    margin: 0; 
+    font-size: 1.3rem; 
+    font-weight: 600; 
+    color: var(--primary-red); 
+    text-transform: uppercase; 
+    text-align: center; 
+    flex: 1; 
+    letter-spacing: 1px;
+}
+.header-btn { 
+    background: none; 
+    border: 1px solid var(--border-light); 
+    color: var(--text-muted); 
+    padding: 6px 10px; 
+    border-radius: 6px; 
+    font-size: 0.8rem; 
+    font-weight: 600; 
+    text-transform: uppercase; 
+    cursor: pointer; 
+}
 
-/* Beide Sektionen teilen sich den Platz exakt 50/50 auf */
+/* =========================================
+   Sektionen & Container (50/50 Layout)
+   ========================================= */
 .section { 
     padding: 15px 20px; 
     border-bottom: none; 
     display: flex;
     flex-direction: column;
     flex: 1; 
-    justify-content: center; /* Zentriert die Container vertikal in ihrer jeweiligen Hälfte */
+    justify-content: center; 
 }
 
 .section:last-child { 
@@ -73,13 +97,13 @@ body {
 }
 
 .section-title { 
-    font-size: 1.1rem; 
+    font-size: 1.25rem; 
     text-transform: uppercase; 
     color: var(--primary-red); 
     font-weight: 700; 
-    margin-bottom: 8px; 
+    margin-bottom: 14px; 
     text-align: center; 
-    letter-spacing: 0.5px; 
+    letter-spacing: 1px; 
 }
 
 .tile { background-color: var(--bg-tile); border-radius: var(--radius-tile); padding: 10px; margin-bottom: 10px; border: 1px solid #f0f0f0; }
@@ -91,7 +115,7 @@ body {
    ========================================= */
 .input-group { margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
 .input-group:last-child { margin-bottom: 0; }
-.input-group label { font-size: 1.1rem; font-weight: 500; flex: 0 0 75px; }
+.input-group label { font-size: 1.15rem; font-weight: 500; flex: 0 0 85px; color: var(--text-dark); }
 
 .input-group.no-label label { display: none; }
 .input-group.no-label .input-wrapper { flex: 1; }
@@ -118,7 +142,6 @@ body {
 
 .input-wrapper input:focus { outline: none; border-color: #ffbaba; box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.05); }
 
-/* Einheit nimmt rechts exakt 50px Platz ein (10px Margin + 40px Breite) */
 .unit { 
     margin-left: 10px; 
     font-size: 0.95rem; 
@@ -134,7 +157,8 @@ body {
 .primary-rates-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 16px; 
+    padding: 6px 0; 
 }
 
 .primary-rates-grid .input-group {
@@ -142,36 +166,29 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 4px;
+    align-items: stretch;
     margin-bottom: 0;
 }
 
-/* Laufrate (links) zentrieren */
-.primary-rates-grid .input-group:first-child .input-wrapper {
-    align-items: center;
-}
-.primary-rates-grid .input-group:first-child input {
-    max-width: 140px;
-    width: 100%;
+.primary-rates-grid .input-group.stacked .input-wrapper {
+    flex-direction: column; 
+    align-items: center; 
 }
 
-/* Zielwert (rechts) exakt an den Basisdaten ausrichten ("Die Flucht") */
-.primary-rates-grid .input-group:last-child .input-wrapper {
-    align-items: flex-end; /* Rechtsbündig im Grid-Feld */
-    padding-right: 50px; /* Simuliert exakt den Platz der Einheit in den Basisdaten! */
-}
-.primary-rates-grid .input-group:last-child input {
-    max-width: 140px;
+.primary-rates-grid .input-wrapper input {
+    max-width: 150px; 
     width: 100%;
+    text-align: center;
 }
 
 .primary-rates-grid .unit {
-    font-size: 0.9rem;
+    font-size: 1.05rem; 
     font-weight: 700;
     flex: none;
     margin-left: 0;
-    margin-bottom: 4px;
+    margin-bottom: 8px; 
     text-align: center;
+    color: var(--primary-red);
 }
 
 /* =========================================
@@ -188,7 +205,7 @@ body {
     margin-bottom: 0; 
     display: flex; 
     flex-direction: column; 
-    justify-content: space-evenly; /* Verteilt die 3 Felder elegant über die Höhe */
+    justify-content: space-evenly; 
     gap: 8px; 
 }
 
@@ -201,11 +218,11 @@ body {
 }
 
 .rates-grid .unit { 
-    font-size: 0.95rem; 
+    font-size: 1rem; 
     font-weight: 600; 
     flex: none; 
     margin-left: 0; 
-    margin-bottom: 4px; 
+    margin-bottom: 8px; 
     text-align: center;
     color: var(--text-dark);
 }
