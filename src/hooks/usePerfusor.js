@@ -12,7 +12,7 @@ export const usePerfusor = () => {
 
     // 2. Raten-Daten
     const [rates, setRates] = useState({
-        mlh: '', mgKgH: '', mgKgMin: '', mcgKgMin: '', mgH: '', mcgH: '', mcgMin: ''
+        mlh: '', mgKgH: '', mgKgMin: '', mcgKgH: '', mcgKgMin: '', mgH: '', mcgH: '', mcgMin: '', mg24h: ''
     });
 
     const activeConcentration = parseFloat(baseData.concentration) || 0;
@@ -64,10 +64,12 @@ export const usePerfusor = () => {
             case 'mlh': mlh = val; break;
             case 'mgKgH': mlh = (val * weight * 1000) / activeConcentration; break;
             case 'mgKgMin': mlh = (val * weight * 60 * 1000) / activeConcentration; break;
+            case 'mcgKgH': mlh = (val * weight) / activeConcentration; break;
             case 'mcgKgMin': mlh = (val * weight * 60) / activeConcentration; break;
             case 'mgH': mlh = (val * 1000) / activeConcentration; break;
             case 'mcgH': mlh = val / activeConcentration; break;
             case 'mcgMin': mlh = (val * 60) / activeConcentration; break;
+            case 'mg24h': mlh = ((val / 24) * 1000) / activeConcentration; break;
             default: break;
         }
 
@@ -77,10 +79,12 @@ export const usePerfusor = () => {
             mlh: sourceField === 'mlh' ? value : formatNumber(mlh),
             mgKgH: sourceField === 'mgKgH' ? value : formatNumber(calculated.mgKgH),
             mgKgMin: sourceField === 'mgKgMin' ? value : formatNumber(calculated.mgKgMin),
+            mcgKgH: sourceField === 'mcgKgH' ? value : formatNumber(calculated.mcgKgH),
             mcgKgMin: sourceField === 'mcgKgMin' ? value : formatNumber(calculated.mcgKgMin),
             mgH: sourceField === 'mgH' ? value : formatNumber(calculated.mgH),
             mcgH: sourceField === 'mcgH' ? value : formatNumber(calculated.mcgH),
-            mcgMin: sourceField === 'mcgMin' ? value : formatNumber(calculated.mcgMin)
+            mcgMin: sourceField === 'mcgMin' ? value : formatNumber(calculated.mcgMin),
+            mg24h: sourceField === 'mg24h' ? value : formatNumber(calculated.mg24h)
         });
     };
 
@@ -96,7 +100,7 @@ export const usePerfusor = () => {
 
     const resetValues = () => {
         setBaseData({ mg: '', ml: '50', weight: '75', concentration: '' });
-        setRates({ mlh: '', mgKgH: '', mgKgMin: '', mcgKgMin: '', mgH: '', mcgH: '', mcgMin: '' });
+        setRates({ mlh: '', mgKgH: '', mgKgMin: '', mcgKgH: '', mcgKgMin: '', mgH: '', mcgH: '', mcgMin: '', mg24h: '' });
     };
 
     return {

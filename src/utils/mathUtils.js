@@ -22,10 +22,12 @@ export const calculateRatesFromMlh = (mlh, conc, weight) => {
     const mgH = mcgH / 1000;
     const mcgMin = mcgH / 60;
     const mcgKgMin = w > 0 ? mcgMin / w : 0;
+    const mcgKgH = w > 0 ? mcgH / w : 0;
     const mgKgH = w > 0 ? mgH / w : 0;
     const mgKgMin = w > 0 ? (mgH / 60) / w : 0;
+    const mg24h = mgH * 24;
 
-    return { mcgH, mgH, mcgMin, mcgKgMin, mgKgH, mgKgMin };
+    return { mcgH, mgH, mcgMin, mcgKgMin, mcgKgH, mgKgH, mgKgMin, mg24h };
 };
 
 /**
