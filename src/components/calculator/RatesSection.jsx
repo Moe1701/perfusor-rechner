@@ -3,12 +3,11 @@ import { Tile } from '../ui/Tile';
 
 export const RatesSection = ({ rates, onChange }) => (
     <div className="section">
-        <div className="section-title">2. Zielwert / Laufrate</div>
+        <div className="section-title">Zielwert / Laufrate</div>
         <Tile highlight>
             <InputGroup id="rate-mlh" label="Laufrate" value={rates.mlh} unit="ml/h" onChange={(val) => onChange('mlh', val)} highlight />
         </Tile>
         
-        {/* Neues Grid-Layout für Side-by-Side Kacheln */}
         <div className="rates-grid">
             <Tile title="Pro KG Körpergewicht">
                 <InputGroup id="rate-mgkgh" value={rates.mgKgH} unit="mg/kg/h" onChange={(val) => onChange('mgKgH', val)} />
