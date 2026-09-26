@@ -148,46 +148,6 @@ export const BaseDataSection = ({ baseData, onChange }) => (
 );
 </file>
 
-<file path="src/components/ui/InputGroup.jsx">
-export const InputGroup = ({ id, label, value, unit, onChange, highlight = false, stacked = false }) => (
-    <div className={`input-group ${!label ? 'no-label' : ''} ${stacked ? 'stacked' : ''}`}>
-        {label && (
-            <label htmlFor={id} style={highlight ? { color: 'var(--primary-red)' } : {}}>
-                {label}
-            </label>
-        )}
-        <div className="input-wrapper">
-            {stacked && (
-                <span className="unit" style={highlight ? { color: 'var(--primary-red)' } : {}}>
-                    {unit}
-                </span>
-            )}
-            <input
-                type="number"
-                id={id}
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
-                onFocus={(e) => e.target.select()}
-                onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                        e.target.blur();
-                    }
-                }}
-                placeholder="0"
-                step="any"
-                inputMode="decimal"
-                style={highlight ? { color: 'var(--primary-red)', fontWeight: 600 } : {}}
-            />
-            {!stacked && (
-                <span className="unit" style={highlight ? { color: 'var(--primary-red)' } : {}}>
-                    {unit}
-                </span>
-            )}
-        </div>
-    </div>
-);
-</file>
-
 <file path="src/hooks/usePerfusor.js">
 import { useState, useEffect } from 'react';
 import { calculateRatesFromMlh, formatNumber } from '../utils/mathUtils';
@@ -300,6 +260,76 @@ export const usePerfusor = () => {
 };
 </file>
 
+<file path="src/components/ui/InputGroup.jsx">
+export const InputGroup = ({ id, label, value, unit, onChange, highlight = false, stacked = false }) => (
+    <div className={`input-group ${!label ? 'no-label' : ''} ${stacked ? 'stacked' : ''}`}>
+        {label && (
+            <label htmlFor={id} style={highlight ? { color: 'var(--primary-indigo)' } : {}}>
+                {label}
+            </label>
+        )}
+        <div className="input-wrapper">
+            {stacked && (
+                <span className="unit" style={highlight ? { color: 'var(--primary-indigo)' } : {}}>
+                    {unit}
+                </span>
+            )}
+            <input
+                type="number"
+                id={id}
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
+                onFocus={(e) => e.target.select()}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                        e.target.blur();
+                    }
+                }}
+                placeholder="0"
+                step="any"
+                inputMode="decimal"
+                style={highlight ? { color: 'var(--primary-indigo)', fontWeight: 600 } : {}}
+            />
+            {!stacked && (
+                <span className="unit" style={highlight ? { color: 'var(--primary-indigo)' } : {}}>
+                    {unit}
+                </span>
+            )}
+        </div>
+    </div>
+);
+</file>
+
+<file path="src/components/calculator/RatesSection.jsx">
+import { InputGroup } from '../ui/InputGroup';
+import { Tile } from '../ui/Tile';
+
+export const RatesSection = ({ rates, onChange }) => (
+    <div className="section">
+        <Tile highlight>
+            <div className="primary-rates-grid">
+                <InputGroup id="rate-mlh" value={rates.mlh} unit={"Laufrate\n(ml/h)"} onChange={(val) => onChange('mlh', val)} highlight stacked />
+                <InputGroup id="rate-mcgkgmin" value={rates.mcgKgMin} unit={"Zielwert\n(µg/kg/min)"} onChange={(val) => onChange('mcgKgMin', val)} highlight stacked />
+            </div>
+        </Tile>
+        
+        <div className="rates-grid">
+            <Tile title="Pro KG Körpergewicht">
+                <InputGroup id="rate-mgkgh" value={rates.mgKgH} unit="mg/kg/h" onChange={(val) => onChange('mgKgH', val)} stacked />
+                <InputGroup id="rate-mgkgmin" value={rates.mgKgMin} unit="mg/kg/min" onChange={(val) => onChange('mgKgMin', val)} stacked />
+                <InputGroup id="rate-mcgkgh" value={rates.mcgKgH} unit="µg/kg/h" onChange={(val) => onChange('mcgKgH', val)} stacked />
+            </Tile>
+            
+            <Tile title="Gesamtdosis (Absolut)">
+                <InputGroup id="rate-mgh" value={rates.mgH} unit="mg/h" onChange={(val) => onChange('mgH', val)} stacked />
+                <InputGroup id="rate-mg24h" value={rates.mg24h} unit="mg/24h" onChange={(val) => onChange('mg24h', val)} stacked />
+                <InputGroup id="rate-mcgh" value={rates.mcgH} unit="µg/h" onChange={(val) => onChange('mcgH', val)} stacked />
+            </Tile>
+        </div>
+    </div>
+);
+</file>
+
 <file path="src/App.jsx">
 import { useState, useRef, useEffect } from 'react';
 import { usePerfusor } from './hooks/usePerfusor';
@@ -405,17 +435,18 @@ export default function App() {
 
             <div className="calculator-card">
                 <div className="header">
-                    <button className="header-btn" onClick={() => setShowModal(true)}>Info</button>
-                    
                     {/* Der geheime Button (App-Name) */}
                     <h1 
                         onClick={handleTitleClick} 
                         style={{ cursor: 'pointer', userSelect: 'none', touchAction: 'manipulation' }}
                     >
-                        Moe's Perfusor Rechner
+                        Perfusor Indigo Test App
                     </h1>
                     
-                    <button className="header-btn" onClick={resetValues}>Reset</button>
+                    <div className="header-buttons">
+                        <button className="header-btn" onClick={() => setShowModal(true)}>Info</button>
+                        <button className="header-btn reset-btn" onClick={resetValues}>Reset</button>
+                    </div>
                 </div>
 
                 <BaseDataSection 
@@ -433,45 +464,15 @@ export default function App() {
 }
 </file>
 
-<file path="src/components/calculator/RatesSection.jsx">
-import { InputGroup } from '../ui/InputGroup';
-import { Tile } from '../ui/Tile';
-
-export const RatesSection = ({ rates, onChange }) => (
-    <div className="section">
-        <Tile highlight>
-            <div className="primary-rates-grid">
-                <InputGroup id="rate-mlh" value={rates.mlh} unit={"Laufrate\n(ml/h)"} onChange={(val) => onChange('mlh', val)} highlight stacked />
-                <InputGroup id="rate-mcgkgmin" value={rates.mcgKgMin} unit={"Zielwert\n(µg/kg/min)"} onChange={(val) => onChange('mcgKgMin', val)} highlight stacked />
-            </div>
-        </Tile>
-        
-        <div className="rates-grid">
-            <Tile title="Pro KG Körpergewicht">
-                <InputGroup id="rate-mgkgh" value={rates.mgKgH} unit="mg/kg/h" onChange={(val) => onChange('mgKgH', val)} stacked />
-                <InputGroup id="rate-mgkgmin" value={rates.mgKgMin} unit="mg/kg/min" onChange={(val) => onChange('mgKgMin', val)} stacked />
-                <InputGroup id="rate-mcgkgh" value={rates.mcgKgH} unit="µg/kg/h" onChange={(val) => onChange('mcgKgH', val)} stacked />
-            </Tile>
-            
-            <Tile title="Gesamtdosis (Absolut)">
-                <InputGroup id="rate-mgh" value={rates.mgH} unit="mg/h" onChange={(val) => onChange('mgH', val)} stacked />
-                <InputGroup id="rate-mg24h" value={rates.mg24h} unit="mg/24h" onChange={(val) => onChange('mg24h', val)} stacked />
-                <InputGroup id="rate-mcgh" value={rates.mcgH} unit="µg/h" onChange={(val) => onChange('mcgH', val)} stacked />
-            </Tile>
-        </div>
-    </div>
-);
-</file>
-
 <file path="src/styles/globals.css">
 :root {
-    --primary-red: #d32f2f;
+    --primary-indigo: #312e81;
     --surface-white: #ffffff;
     --bg-body: #f4f6f8;
     --bg-tile: #fcfcfc;
-    --border-light: #eaeaea;
+    --border-light: #cbd5e1;
     --text-dark: #2c3e50;
-    --text-muted: #7f8c8d;
+    --text-muted: #475569;
     --radius-card: 16px;
     --radius-tile: 12px;
     --radius-input: 8px;
@@ -529,12 +530,15 @@ body {
     margin: 0; 
     font-size: 1.15rem; 
     font-weight: 600; 
-    color: var(--primary-red); 
+    color: var(--primary-indigo); 
     text-transform: uppercase; 
-    text-align: center; 
-    flex: 1; 
+    text-align: left; 
     letter-spacing: 0.5px;
     line-height: 1.2;
+}
+.header-buttons {
+    display: flex;
+    gap: 8px;
 }
 .header-btn { 
     background: none; 
@@ -546,6 +550,12 @@ body {
     font-weight: 600; 
     text-transform: uppercase; 
     cursor: pointer; 
+    transition: color 0.2s, border-color 0.2s;
+}
+.header-btn.reset-btn:hover,
+.header-btn.reset-btn:active {
+    color: #b91c1c;
+    border-color: #b91c1c;
 }
 
 /* =========================================
@@ -571,15 +581,15 @@ body {
 .section-title { 
     font-size: 1.2rem; 
     text-transform: uppercase; 
-    color: var(--primary-red); 
+    color: var(--primary-indigo); 
     font-weight: 700; 
     margin-bottom: 10px; 
     text-align: center; 
     letter-spacing: 1px; 
 }
 
-.tile { background-color: var(--bg-tile); border-radius: var(--radius-tile); padding: 10px; margin-bottom: 8px; border: 1px solid #f0f0f0; }
-.tile-highlight { background-color: #fff9f9; border: 1px solid #ffebeb; padding: 8px 12px; } 
+.tile { background-color: var(--bg-tile); border-radius: var(--radius-tile); padding: 10px; margin-bottom: 8px; border: 1px solid var(--border-light); }
+.tile-highlight { background-color: #eef2ff; border: 1px solid #c7d2fe; padding: 8px 12px; } 
 .tile-title { font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 8px; text-align: center; line-height: 1.2; }
 
 /* =========================================
@@ -612,7 +622,7 @@ body {
     color: var(--text-dark);
 }
 
-.input-wrapper input:focus { outline: none; border-color: #ffbaba; box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.05); }
+.input-wrapper input:focus { outline: none; border-color: #a5b4fc; box-shadow: 0 0 0 3px rgba(49, 46, 129, 0.08); }
 
 .unit { 
     margin-left: 10px; 
@@ -660,7 +670,7 @@ body {
     margin-left: 0;
     margin-bottom: 6px; 
     text-align: center;
-    color: var(--primary-red);
+    color: var(--primary-indigo);
     white-space: pre-line; 
     line-height: 1.2;
 }
@@ -719,9 +729,9 @@ body {
 /* Modal Styles */
 .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.4); display: flex; justify-content: center; align-items: center; z-index: 1000; padding: 20px; backdrop-filter: blur(4px); }
 .modal-content { background-color: var(--surface-white); border-radius: var(--radius-card); padding: 20px; max-width: 400px; width: 100%; }
-.modal-content h2 { margin-top: 0; color: var(--primary-red); font-size: 1.1rem; }
-.disclaimer { font-size: 0.8rem; color: var(--text-muted); background-color: var(--bg-body); padding: 10px; border-radius: var(--radius-input); margin-top: 10px; border-left: 3px solid var(--primary-red); }
-.modal-close-btn { width: 100%; padding: 12px; margin-top: 15px; background-color: var(--surface-white); border: 1px solid var(--border-light); border-radius: var(--radius-input); font-weight: 500; cursor: pointer; }
+.modal-content h2 { margin-top: 0; color: var(--primary-indigo); font-size: 1.1rem; }
+.disclaimer { font-size: 0.8rem; color: #92400e; background-color: #fffbeb; padding: 10px; border-radius: var(--radius-input); margin-top: 10px; border-left: 3px solid #d97706; }
+.modal-close-btn { width: 100%; padding: 12px; margin-top: 15px; background-color: var(--surface-white); color: var(--primary-indigo); border: 1px solid var(--border-light); border-radius: var(--radius-input); font-weight: 600; cursor: pointer; }
 
 /* =========================================
    Entwickler-Features (Fadenkreuz + Skala)
