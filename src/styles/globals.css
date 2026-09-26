@@ -105,7 +105,7 @@ body {
 .primary-rates-grid .unit {
     font-size: 0.9rem;
     font-weight: 700;
-    text-transform: uppercase;
+    /* text-transform: uppercase entfernt, damit die Einheiten kleingeschrieben bleiben */
     flex: none;
     margin-left: 0;
     margin-bottom: 4px;

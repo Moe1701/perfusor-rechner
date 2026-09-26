@@ -3,7 +3,6 @@ import { Tile } from '../ui/Tile';
 
 export const RatesSection = ({ rates, onChange }) => (
     <div className="section">
-        <div className="section-title">Zielwert / Laufrate</div>
         <Tile highlight>
             <div className="primary-rates-grid">
                 <InputGroup id="rate-mlh" value={rates.mlh} unit="Laufrate (ml/h)" onChange={(val) => onChange('mlh', val)} highlight stacked />
