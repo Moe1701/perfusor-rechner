@@ -52,7 +52,7 @@ body {
 .header-btn { background: none; border: 1px solid var(--border-light); color: var(--text-muted); padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; cursor: pointer; }
 
 .section { 
-    padding: 10px 15px; 
+    padding: 8px 15px; /* Minimal weniger Innenabstand oben/unten, um Platz für das große Grid zu machen */
     border-bottom: 1px solid var(--border-light); 
 }
 
@@ -64,7 +64,15 @@ body {
     flex: 1; /* Nur die untere Sektion wächst */
 }
 
-.section-title { font-size: 0.8rem; text-transform: uppercase; color: var(--primary-red); font-weight: 600; margin-bottom: 10px; text-align: center; }
+.section-title { 
+    font-size: 1.1rem; /* Deutlich größer */
+    text-transform: uppercase; 
+    color: var(--primary-red); 
+    font-weight: 700; /* Etwas dicker */
+    margin-bottom: 8px; 
+    text-align: center; 
+    letter-spacing: 0.5px; /* Minimaler Buchstabenabstand für einen cleaneren Look */
+}
 
 .tile { background-color: var(--bg-tile); border-radius: var(--radius-tile); padding: 10px; margin-bottom: 10px; border: 1px solid #f0f0f0; }
 .tile-highlight { background-color: #fff9f9; border: 1px solid #ffebeb; padding: 12px; }
@@ -97,6 +105,7 @@ body {
     flex: 1; 
     justify-content: flex-end; /* Schiebt das verkürzte Feld nach rechts zur Einheit */
 }
+
 .input-wrapper input {
     width: 100%;
     max-width: 130px; /* Macht die Felder in den Basisdaten kürzer */
@@ -109,16 +118,20 @@ body {
     background-color: var(--surface-white);
     color: var(--text-dark);
 }
+
 .input-wrapper input:focus { outline: none; border-color: #ffbaba; box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.05); }
 
 .unit { margin-left: 6px; font-size: 0.95rem; font-weight: 500; color: var(--text-muted); flex: 0 0 75px; }
 
+/* Grid-Spezifische Eingabefelder */
 .rates-grid .input-wrapper input { 
-    font-size: 16px; 
-    padding: 8px 4px; 
-    max-width: 100%; /* Hebt die 130px Begrenzung der Basisdaten hier im Grid wieder auf */
-    text-align: center; /* Zentriert die Zahlen optisch unter der Einheit */
+    font-size: 18px; /* Exakt gleiche Größe wie die Basisdaten oben */
+    font-weight: 600; /* Exakt gleiche Dicke wie oben */
+    padding: 10px 6px; /* Exakt gleicher Innenabstand wie oben */
+    max-width: 100%; 
+    text-align: center; 
 }
+
 .rates-grid .unit { 
     font-size: 0.95rem; /* Schrift vergrößert, da jetzt mehr Platz vorhanden ist */
     font-weight: 600; /* Etwas dicker, damit es wie eine echte Überschrift wirkt */
@@ -126,8 +139,9 @@ body {
     margin-left: 0; 
     margin-bottom: 4px; 
     text-align: center;
-    color: var(--text-dark); /* Optional: Etwas dunkler machen, falls sie vorher zu blass waren */
+    color: var(--text-dark);
 }
+
 .rates-grid .input-group { 
     flex: 1; 
     display: flex;
@@ -137,6 +151,7 @@ body {
     gap: 4px; 
     margin-bottom: 0; 
 }
+
 .rates-grid .input-group.stacked .input-wrapper { 
     flex-direction: column; /* Saubere Architektur: DOM-Reihenfolge entspricht nun der visuellen Reihenfolge */
     align-items: stretch; 

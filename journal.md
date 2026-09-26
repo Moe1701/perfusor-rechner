@@ -37,3 +37,15 @@
 ## Nächste Schritte / Offene Todos
 - **Layout-Feinschliff:** Die 50/50-Aufteilung und Skalierung im Detail prüfen.
 - **Workflow-Optimierung:** Ab sofort werden bei kleinen Anpassungen nur noch "Suchen & Ersetzen"-Snippets verwendet, um die Dateien übersichtlich zu halten und Fehler beim Kopieren zu vermeiden.
+## Meilenstein: Layout-Perfektionierung & Grid-Optimierung (26.09.2026)
+- **100dvh Bugfix:** Der `#root`-Container von React wurde auf `flex-grow: 1` gesetzt. Dadurch füllt die `.calculator-card` nun endlich den kompletten Bildschirm nach unten hin aus.
+- **50/50 Layout etabliert:** Die Basisdaten nehmen nun ihren natürlichen Platz ein, während das untere Raten-Grid (`.rates-grid`) den gesamten restlichen Platz der unteren Bildschirmhälfte dynamisch ausfüllt.
+- **Grid-Verteilung:** Die 3 Input-Groups innerhalb der unteren Kacheln dritteln sich den Platz nun exakt (`flex: 1`), wodurch keine unschönen Lücken mehr entstehen.
+- **Basisdaten optimiert:** Die Eingabefelder der Basisdaten wurden verkürzt (`max-width: 130px`) und rechtsbündig an die Einheiten herangerückt, um die Lesbarkeit zu verbessern.
+- **CSS-Magie im Raten-Grid:** Ohne die React-Struktur zu ändern, wurden die Einheiten (z.B. "mg/kg/h") über `flex-direction: column-reverse` optisch *über* die Eingabefelder gehoben. Gleichzeitig wurde ihre Schriftgröße auf `0.95rem` (bold) erhöht, sodass sie nun als klare, kleine Überschriften fungieren.
+- **Developer Tools Update:** Das Fadenkreuz (3-Klick) zeigt nun nicht nur die Mitte (0/0), sondern live die exakte Pixel-Auflösung (Breite x Höhe) des Bildschirms an.
+- **Workflow:** Strikter Git-Workflow (`add`, `commit`, `push`) bei jedem Snippet eingeführt.
+
+## Nächste Schritte / Offene Todos
+- Farb-Tuning (Kontraste prüfen, ggf. dezente Hervorhebungen für die wichtigsten Felder).
+- Testen auf verschiedenen realen Endgeräten (iOS/Android) via PWA.
