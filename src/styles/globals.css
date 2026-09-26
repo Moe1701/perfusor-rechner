@@ -120,11 +120,13 @@ body {
     text-align: center; /* Zentriert die Zahlen optisch unter der Einheit */
 }
 .rates-grid .unit { 
-    font-size: 0.75rem; 
-    flex: none; /* Hebt die feste Breite der Einheit auf */
+    font-size: 0.95rem; /* Schrift vergrößert, da jetzt mehr Platz vorhanden ist */
+    font-weight: 600; /* Etwas dicker, damit es wie eine echte Überschrift wirkt */
+    flex: none; 
     margin-left: 0; 
-    margin-bottom: 4px; /* Kleiner Abstand zum Eingabefeld darunter */
+    margin-bottom: 4px; 
     text-align: center;
+    color: var(--text-dark); /* Optional: Etwas dunkler machen, falls sie vorher zu blass waren */
 }
 .rates-grid .input-group { 
     flex: 1; 
