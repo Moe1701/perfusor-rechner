@@ -102,8 +102,6 @@ export default function App() {
 
             <div className="calculator-card">
                 <div className="header">
-                    <button className="header-btn" onClick={() => setShowModal(true)}>Info</button>
-                    
                     {/* Der geheime Button (App-Name) */}
                     <h1 
                         onClick={handleTitleClick} 
@@ -112,7 +110,10 @@ export default function App() {
                         Moe's Perfusor Rechner
                     </h1>
                     
-                    <button className="header-btn" onClick={resetValues}>Reset</button>
+                    <div className="header-buttons">
+                        <button className="header-btn" onClick={() => setShowModal(true)}>Info</button>
+                        <button className="header-btn reset-btn" onClick={resetValues}>Reset</button>
+                    </div>
                 </div>
 
                 <BaseDataSection 
