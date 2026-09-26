@@ -6,6 +6,7 @@ Projektstruktur:
 ├── index.html
 ├── journal.md
 ├── Master Prompt.txt
+├── mykrogramm finden.txt
 ├── package-lock.json
 ├── package.json
 ├── public
