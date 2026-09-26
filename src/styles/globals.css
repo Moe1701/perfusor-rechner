@@ -44,7 +44,8 @@ body {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    height: 100%; /* Zwingt die Karte, den Platz des nun wachsenden #root-Containers voll auszufüllen */
+    height: 100%; 
+    justify-content: center; /* MAGIE: Zieht alle 3 Sektionen in die vertikale Mitte (Richtung 0/0)! */
 }
 
 .header { padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); }
@@ -52,16 +53,15 @@ body {
 .header-btn { background: none; border: 1px solid var(--border-light); color: var(--text-muted); padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; cursor: pointer; }
 
 .section { 
-    padding: 8px 15px; /* Minimal weniger Innenabstand oben/unten, um Platz für das große Grid zu machen */
-    border-bottom: 1px solid var(--border-light); 
+    padding: 5px 15px; 
+    border-bottom: none; /* Harte Striche entfernt, da wir jetzt Container/Tiles nutzen */
 }
 
 .section:last-child { 
-    border-bottom: none; 
     padding-bottom: 15px;
     display: flex;
     flex-direction: column;
-    flex: 1; /* Nur die untere Sektion wächst */
+    /* flex: 1 entfernt, damit die Boxen nicht mehr unnatürlich riesig gestreckt werden */
 }
 
 .section-title { 
@@ -114,7 +114,9 @@ body {
 
 .primary-rates-grid input {
     text-align: center;
-    max-width: 100%; 
+    max-width: 140px; /* Gleiche Breite wie die Basisdaten oben für die Flucht */
+    margin: 0 auto; /* Zentriert die Eingabefelder perfekt unter der Überschrift */
+    width: 100%; 
 }
 
 /* =========================================
@@ -150,7 +152,7 @@ body {
 
 .input-wrapper input {
     width: 100%;
-    max-width: 130px; /* Macht die Felder in den Basisdaten kürzer */
+    max-width: 140px; /* Breite leicht erhöht, um die Flucht mit dem Zielwert-Feld zu bilden */
     font-size: 18px; 
     font-weight: 600;
     padding: 10px 6px; 
@@ -163,7 +165,14 @@ body {
 
 .input-wrapper input:focus { outline: none; border-color: #ffbaba; box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.05); }
 
-.unit { margin-left: 6px; font-size: 0.95rem; font-weight: 500; color: var(--text-muted); flex: 0 0 75px; }
+.unit { 
+    margin-left: 10px; 
+    font-size: 0.95rem; /* Gleiche Größe wie im unteren Grid */
+    font-weight: 700; /* Fett wie im unteren Grid */
+    color: var(--text-dark); 
+    flex: 0 0 40px; /* Feste Breite, damit alle oberen Felder perfekt übereinander stehen */
+    text-align: left;
+}
 
 /* Grid-Spezifische Eingabefelder */
 .rates-grid .input-wrapper input { 
