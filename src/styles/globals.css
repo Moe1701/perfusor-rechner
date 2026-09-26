@@ -40,7 +40,7 @@ body {
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     width: 100%;
     max-width: 540px; 
-    overflow-y: auto; /* WICHTIG: Erlaubt vertikales Scrollen, falls der Platz nicht reicht! */
+    overflow-y: auto; 
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
@@ -49,10 +49,10 @@ body {
 }
 
 /* =========================================
-   Kopfzeile (Kompakt & Elegant)
+   Kopfzeile
    ========================================= */
 .header { 
-    padding: 14px 15px; 
+    padding: 12px 15px; /* Minimal reduziert */
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
@@ -83,10 +83,10 @@ body {
 }
 
 /* =========================================
-   Sektionen & Container (50/50 Layout)
+   Sektionen & Container 
    ========================================= */
 .section { 
-    padding: 12px 15px; 
+    padding: 8px 15px; /* Zieht die obere und untere Hälfte deutlich enger zusammen! */
     border-bottom: none; 
     display: flex;
     flex-direction: column;
@@ -95,21 +95,21 @@ body {
 }
 
 .section:last-child { 
-    padding-bottom: 15px;
+    padding-bottom: 12px;
 }
 
 .section-title { 
-    font-size: 1.25rem; 
+    font-size: 1.2rem; 
     text-transform: uppercase; 
     color: var(--primary-red); 
     font-weight: 700; 
-    margin-bottom: 14px; 
+    margin-bottom: 10px; /* Reduziert */
     text-align: center; 
     letter-spacing: 1px; 
 }
 
-.tile { background-color: var(--bg-tile); border-radius: var(--radius-tile); padding: 10px; margin-bottom: 10px; border: 1px solid #f0f0f0; }
-.tile-highlight { background-color: #fff9f9; border: 1px solid #ffebeb; padding: 12px; }
+.tile { background-color: var(--bg-tile); border-radius: var(--radius-tile); padding: 10px; margin-bottom: 8px; border: 1px solid #f0f0f0; }
+.tile-highlight { background-color: #fff9f9; border: 1px solid #ffebeb; padding: 8px 12px; } /* Ränder der roten Box verkleinert */
 .tile-title { font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 8px; text-align: center; line-height: 1.2; }
 
 /* =========================================
@@ -159,8 +159,8 @@ body {
 .primary-rates-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px; 
-    padding: 6px 0; 
+    gap: 12px; 
+    padding: 4px 0; 
 }
 
 .primary-rates-grid .input-group {
@@ -188,9 +188,11 @@ body {
     font-weight: 700;
     flex: none;
     margin-left: 0;
-    margin-bottom: 8px; 
+    margin-bottom: 6px; 
     text-align: center;
     color: var(--primary-red);
+    white-space: pre-line; /* MAGIE: Ermöglicht das korrekte Rendern des \n Zeilenumbruchs! */
+    line-height: 1.2;
 }
 
 /* =========================================
@@ -220,11 +222,11 @@ body {
 }
 
 .rates-grid .unit { 
-    font-size: 1rem; 
+    font-size: 0.95rem; 
     font-weight: 600; 
     flex: none; 
     margin-left: 0; 
-    margin-bottom: 8px; 
+    margin-bottom: 6px; 
     text-align: center;
     color: var(--text-dark);
 }
