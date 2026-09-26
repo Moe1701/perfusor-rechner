@@ -84,34 +84,28 @@ body {
 .primary-rates-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    gap: 12px;
 }
 
 .primary-rates-grid .input-group {
     flex: 1;
     display: flex;
-    flex-direction: column; /* Label rückt nach oben */
+    flex-direction: column;
     align-items: stretch;
+    justify-content: center;
+    gap: 4px;
     margin-bottom: 0;
 }
 
-.primary-rates-grid .input-group label {
-    flex: none;
-    text-align: center;
-    margin-bottom: 6px;
-    font-size: 0.85rem; /* Etwas kompakter als oben */
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
 .primary-rates-grid .input-group.stacked .input-wrapper {
-    flex-direction: column; /* Einheit über Input */
+    flex-direction: column;
     align-items: stretch;
 }
 
 .primary-rates-grid .unit {
-    font-size: 0.95rem;
-    font-weight: 600;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
     flex: none;
     margin-left: 0;
     margin-bottom: 4px;
@@ -120,7 +114,7 @@ body {
 
 .primary-rates-grid input {
     text-align: center;
-    max-width: 100%; /* Erlaubt das Ausfüllen des Grids */
+    max-width: 100%; 
 }
 
 /* =========================================

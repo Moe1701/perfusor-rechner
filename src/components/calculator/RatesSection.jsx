@@ -6,8 +6,8 @@ export const RatesSection = ({ rates, onChange }) => (
         <div className="section-title">Zielwert / Laufrate</div>
         <Tile highlight>
             <div className="primary-rates-grid">
-                <InputGroup id="rate-mlh" label="Laufrate" value={rates.mlh} unit="ml/h" onChange={(val) => onChange('mlh', val)} highlight stacked />
-                <InputGroup id="rate-mcgkgmin" label="Zielwert" value={rates.mcgKgMin} unit="µg/kg/min" onChange={(val) => onChange('mcgKgMin', val)} highlight stacked />
+                <InputGroup id="rate-mlh" value={rates.mlh} unit="Laufrate (ml/h)" onChange={(val) => onChange('mlh', val)} highlight stacked />
+                <InputGroup id="rate-mcgkgmin" value={rates.mcgKgMin} unit="Zielwert (µg/kg/min)" onChange={(val) => onChange('mcgKgMin', val)} highlight stacked />
             </div>
         </Tile>
         
