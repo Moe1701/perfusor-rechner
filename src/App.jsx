@@ -84,7 +84,7 @@ export default function App() {
                     <div className="crosshair-y"></div>
                     <div className="crosshair-center">{screenSize.w} x {screenSize.h} px</div>
                 </div>
-            )}
+            )}Scon 
 
             {showModal && (
                 <div className="modal-overlay" onClick={() => setShowModal(false)}>

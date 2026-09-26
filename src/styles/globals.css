@@ -54,14 +54,14 @@ body {
 .section { 
     padding: 10px 15px; 
     border-bottom: 1px solid var(--border-light); 
-    display: flex;
-    flex-direction: column;
-    flex: 1; /* Zwingt BEIDE Sektionen (Basisdaten & Raten) zu exakt 50% des verbleibenden Platzes */
 }
 
 .section:last-child { 
     border-bottom: none; 
     padding-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Nur die untere Sektion wächst */
 }
 
 .section-title { font-size: 0.8rem; text-transform: uppercase; color: var(--primary-red); font-weight: 600; margin-bottom: 10px; text-align: center; }
