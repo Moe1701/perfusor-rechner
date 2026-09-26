@@ -20,9 +20,18 @@ body {
     margin: 0;
     padding: 5px; 
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     overscroll-behavior-y: none;
-    height: 100dvh; /* WICHTIG: Zwingt den Hintergrund auf 100% Bildschirmhöhe */
+    height: 100dvh; 
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
 .calculator-card {
@@ -34,7 +43,8 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* WICHTIG: Erlaubt der Karte, bis ganz nach unten zu wachsen */
+    flex-grow: 1;
+    height: 100%; /* Zwingt die Karte, den Platz des nun wachsenden #root-Containers voll auszufüllen */
 }
 
 .header { padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); }
