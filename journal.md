@@ -102,3 +102,20 @@
 ## Nächste Schritte / Offene Todos
 - Farb-Tuning (Kontraste prüfen, ggf. dezente Hervorhebungen für die wichtigsten Felder).
 - Ausgiebiges Testen der neuen Raten-Logik im klinischen Alltag (PWA auf Realgeräten).
+# Projekt-Tagebuch: Moe's Perfusor Rechner (React PWA)
+
+## Projektziele & Status
+- **Ziel:** Ein medizinischer Offline-Rechner (PWA) für Laufraten und Dosierungen.
+- **Architektur:** React (Vite), reines CSS, Vercel-Deployment. Strikte Trennung von UI und Logik.
+- **Aktueller Status:** Die Logik ist zu 100 % funktional. Das UI-Layout wurde ergonomisch optimiert. Wir haben ein professionelles Staging-Environment etabliert: Der `main`-Branch hält die stabile, rote Live-App, während wir in dedizierten `dev`-Branches neue Designs testen (aktuell: "Perfusor Indigo Test App").
+
+## Abgeschlossene Meilensteine (Erreicht)
+- [x] Migration zu React/Vite und PWA-Offline-Support via Vercel.
+- [x] Bidirektionale Synchronisierung von Wirkstoff und Konzentration.
+- [x] **Mobile UI-Harmonisierung:** Tile-Container, symmetrisches Highlight-Grid, Single-Screen-Fit (`100dvh`).
+- [x] **Farb-Tuning & Ergonomie (Deep Indigo):** Erfolgreiche Umstellung auf `#312e81` im `dev`-Branch. Höhere Kontraste (`#cbd5e1`, `#475569`) und klassisch linksbündige Kopfzeile.
+- [x] **Dev-Ops & Staging:** Erfolgreiches Splitting in eigenständige PWA-Installationen via Vercel Preview Deployments. Dev-App wurde zur besseren Unterscheidbarkeit in "Perfusor Indigo Test App" umbenannt.
+
+## Nächste Schritte / Offene Todos
+- **Design-Experimente:** Branch `dev2` initialisieren, um eine alternative Farbkombination (Design-Variante 3) zu testen und gegen Indigo abzuwägen.
+- Ausgiebiges Testen der App im klinischen Alltag.
