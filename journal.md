@@ -49,3 +49,32 @@
 ## Nächste Schritte / Offene Todos
 - Farb-Tuning (Kontraste prüfen, ggf. dezente Hervorhebungen für die wichtigsten Felder).
 - Testen auf verschiedenen realen Endgeräten (iOS/Android) via PWA.
+# Projekt-Tagebuch: Moe's Perfusor Rechner (React PWA)
+
+## Projektziele & Status
+- **Ziel:** Ein medizinischer Offline-Rechner (PWA) für Laufraten und Dosierungen.
+- **Architektur:** React (Vite), reines CSS, Vercel-Deployment. Strikte Trennung von UI und Logik.
+- **Aktueller Status:** Die Logik ist zu 100 % funktional. Das Layout nutzt die volle Bildschirmhöhe (`100dvh`). Strikte "Keine Pflaster"-Architekturregel ist etabliert.
+
+## Abgeschlossene Meilensteine (Erreicht)
+- [x] Migration zu React/Vite und PWA-Offline-Support via Vercel.
+- [x] Bidirektionale Synchronisierung von Wirkstoff und Konzentration.
+- [x] Kompakte Layout-Basis wiederhergestellt.
+- [x] **Developer-Features integriert:** 
+  - 3-Klick auf den Titel: Aktiviert ein x/y-Fadenkreuz zur Layout-Diagnose inkl. Live-Pixel-Skala.
+  - 5-Klick auf den Titel: Führt einen Hard Reset durch (leert LocalStorage, löscht PWA-Caches, meldet Service Worker ab und lädt neu).
+
+## Meilenstein: Layout-Perfektionierung & Grid-Optimierung (26.09.2026)
+- **100dvh Bugfix:** Der `#root`-Container von React wurde auf `flex-grow: 1` gesetzt. Dadurch füllt die `.calculator-card` nun den kompletten Bildschirm nach unten hin aus.
+- **50/50 Layout etabliert:** Die Basisdaten nehmen ihren natürlichen Platz ein, das Raten-Grid (`.rates-grid`) füllt den gesamten restlichen Platz dynamisch aus.
+- **Architektur-Refactor:** Die "stacked"-Eigenschaft in `InputGroup` eingeführt. Einheiten stehen nun sauber im DOM vor den Eingabefeldern (ersetzt vorherige CSS-Hacks).
+- **Mobile UX-Upgrades:** Eingabefelder markieren beim Antippen automatisch ihren Inhalt (`e.target.select()`). Die mobile Tastatur schließt sich sauber beim Drücken von "Enter" oder "Fertig".
+- **UI-Konsistenz:** Felder im unteren Raten-Grid wurden exakt an die Basisdaten angeglichen (18px Schrift, font-weight 600).
+
+## Meilenstein: Medizinische Workflow-Optimierung (26.09.2026)
+- **Bugfix:** Den mysteriösen "Scon"-Tippfehler, der sich außerhalb der UI-Karten in der `App.jsx` versteckt hatte, per Node-Suchskript lokalisiert und entfernt.
+- **Workflow-Update:** Die Zielgröße `µg/kg/min` wurde prominent nach oben in die rote Laufraten-Box verschoben. Das Raten-Grid wurde um `mg/24h` (Gesamtdosis) und `µg/kg/h` (Pro KG) erweitert und ausbalanciert. Rechenlogik und State-Manager wurden entsprechend angepasst.
+
+## Nächste Schritte / Offene Todos
+- Farb-Tuning (Kontraste prüfen, ggf. dezente Hervorhebungen für die wichtigsten Felder).
+- Ausgiebiges Testen der neuen Raten-Logik auf realen Endgeräten (iOS/Android).
