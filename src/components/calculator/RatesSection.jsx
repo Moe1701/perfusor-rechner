@@ -10,15 +10,15 @@ export const RatesSection = ({ rates, onChange }) => (
         
         <div className="rates-grid">
             <Tile title="Pro KG Körpergewicht">
-                <InputGroup id="rate-mgkgh" value={rates.mgKgH} unit="mg/kg/h" onChange={(val) => onChange('mgKgH', val)} />
-                <InputGroup id="rate-mgkgmin" value={rates.mgKgMin} unit="mg/kg/min" onChange={(val) => onChange('mgKgMin', val)} />
-                <InputGroup id="rate-mcgkgmin" value={rates.mcgKgMin} unit="µg/kg/min" onChange={(val) => onChange('mcgKgMin', val)} />
+                <InputGroup id="rate-mgkgh" value={rates.mgKgH} unit="mg/kg/h" onChange={(val) => onChange('mgKgH', val)} stacked />
+                <InputGroup id="rate-mgkgmin" value={rates.mgKgMin} unit="mg/kg/min" onChange={(val) => onChange('mgKgMin', val)} stacked />
+                <InputGroup id="rate-mcgkgmin" value={rates.mcgKgMin} unit="µg/kg/min" onChange={(val) => onChange('mcgKgMin', val)} stacked />
             </Tile>
             
             <Tile title="Gesamtdosis (Absolut)">
-                <InputGroup id="rate-mgh" value={rates.mgH} unit="mg/h" onChange={(val) => onChange('mgH', val)} />
-                <InputGroup id="rate-mcgh" value={rates.mcgH} unit="µg/h" onChange={(val) => onChange('mcgH', val)} />
-                <InputGroup id="rate-mcgmin" value={rates.mcgMin} unit="µg/min" onChange={(val) => onChange('mcgMin', val)} />
+                <InputGroup id="rate-mgh" value={rates.mgH} unit="mg/h" onChange={(val) => onChange('mgH', val)} stacked />
+                <InputGroup id="rate-mcgh" value={rates.mcgH} unit="µg/h" onChange={(val) => onChange('mcgH', val)} stacked />
+                <InputGroup id="rate-mcgmin" value={rates.mcgMin} unit="µg/min" onChange={(val) => onChange('mcgMin', val)} stacked />
             </Tile>
         </div>
     </div>

@@ -137,8 +137,8 @@ body {
     gap: 4px; 
     margin-bottom: 0; 
 }
-.rates-grid .input-wrapper { 
-    flex-direction: column-reverse; /* MAGIE: Zieht die HTML-nachfolgende Einheit optisch ÜBER das Feld! */
+.rates-grid .input-group.stacked .input-wrapper { 
+    flex-direction: column; /* Saubere Architektur: DOM-Reihenfolge entspricht nun der visuellen Reihenfolge */
     align-items: stretch; 
 }
 
