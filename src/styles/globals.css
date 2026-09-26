@@ -52,7 +52,7 @@ body {
    Kopfzeile
    ========================================= */
 .header { 
-    padding: 12px 15px; /* Minimal reduziert */
+    padding: 12px 15px; 
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
@@ -86,7 +86,7 @@ body {
    Sektionen & Container 
    ========================================= */
 .section { 
-    padding: 8px 15px; /* Zieht die obere und untere Hälfte deutlich enger zusammen! */
+    padding: 0 15px; /* Vertikales Padding entfernt! Abstand wird nun 1:1 durch die Kacheln selbst bestimmt */
     border-bottom: none; 
     display: flex;
     flex-direction: column;
@@ -94,8 +94,12 @@ body {
     justify-content: center; 
 }
 
+.section:first-of-type {
+    padding-top: 10px; /* Saubere Luft nach oben zur Kopfzeile */
+}
+
 .section:last-child { 
-    padding-bottom: 12px;
+    padding-bottom: 12px; /* Saubere Luft zum unteren Bildschirmrand */
 }
 
 .section-title { 
@@ -103,13 +107,13 @@ body {
     text-transform: uppercase; 
     color: var(--primary-red); 
     font-weight: 700; 
-    margin-bottom: 10px; /* Reduziert */
+    margin-bottom: 10px; 
     text-align: center; 
     letter-spacing: 1px; 
 }
 
 .tile { background-color: var(--bg-tile); border-radius: var(--radius-tile); padding: 10px; margin-bottom: 8px; border: 1px solid #f0f0f0; }
-.tile-highlight { background-color: #fff9f9; border: 1px solid #ffebeb; padding: 8px 12px; } /* Ränder der roten Box verkleinert */
+.tile-highlight { background-color: #fff9f9; border: 1px solid #ffebeb; padding: 8px 12px; } 
 .tile-title { font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 8px; text-align: center; line-height: 1.2; }
 
 /* =========================================
@@ -191,7 +195,7 @@ body {
     margin-bottom: 6px; 
     text-align: center;
     color: var(--primary-red);
-    white-space: pre-line; /* MAGIE: Ermöglicht das korrekte Rendern des \n Zeilenumbruchs! */
+    white-space: pre-line; 
     line-height: 1.2;
 }
 
