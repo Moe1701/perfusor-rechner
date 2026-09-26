@@ -1,10 +1,10 @@
 :root {
-    --primary-indigo: #312e81;
+    --primary-amber: #b45309;
     --surface-white: #ffffff;
     --bg-body: #f4f6f8;
     --bg-tile: #fcfcfc;
     --border-light: #cbd5e1;
-    --text-dark: #2c3e50;
+    --text-dark: #1e293b;
     --text-muted: #475569;
     --radius-card: 16px;
     --radius-tile: 12px;
@@ -63,7 +63,7 @@ body {
     margin: 0; 
     font-size: 1.15rem; 
     font-weight: 600; 
-    color: var(--primary-indigo); 
+    color: var(--primary-amber); 
     text-transform: uppercase; 
     text-align: left; 
     letter-spacing: 0.5px;
@@ -87,8 +87,8 @@ body {
 }
 .header-btn.reset-btn:hover,
 .header-btn.reset-btn:active {
-    color: #b91c1c;
-    border-color: #b91c1c;
+    color: #dc2626;
+    border-color: #dc2626;
 }
 
 /* =========================================
@@ -114,7 +114,7 @@ body {
 .section-title { 
     font-size: 1.2rem; 
     text-transform: uppercase; 
-    color: var(--primary-indigo); 
+    color: var(--primary-amber); 
     font-weight: 700; 
     margin-bottom: 10px; 
     text-align: center; 
@@ -122,7 +122,7 @@ body {
 }
 
 .tile { background-color: var(--bg-tile); border-radius: var(--radius-tile); padding: 10px; margin-bottom: 8px; border: 1px solid var(--border-light); }
-.tile-highlight { background-color: #eef2ff; border: 1px solid #c7d2fe; padding: 8px 12px; } 
+.tile-highlight { background-color: #fffbeb; border: 1px solid #fde68a; padding: 8px 12px; } 
 .tile-title { font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 8px; text-align: center; line-height: 1.2; }
 
 /* =========================================
@@ -155,7 +155,7 @@ body {
     color: var(--text-dark);
 }
 
-.input-wrapper input:focus { outline: none; border-color: #a5b4fc; box-shadow: 0 0 0 3px rgba(49, 46, 129, 0.08); }
+.input-wrapper input:focus { outline: none; border-color: #f59e0b; box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15); }
 
 .unit { 
     margin-left: 10px; 
@@ -203,7 +203,7 @@ body {
     margin-left: 0;
     margin-bottom: 6px; 
     text-align: center;
-    color: var(--primary-indigo);
+    color: var(--primary-amber);
     white-space: pre-line; 
     line-height: 1.2;
 }
@@ -262,9 +262,9 @@ body {
 /* Modal Styles */
 .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.4); display: flex; justify-content: center; align-items: center; z-index: 1000; padding: 20px; backdrop-filter: blur(4px); }
 .modal-content { background-color: var(--surface-white); border-radius: var(--radius-card); padding: 20px; max-width: 400px; width: 100%; }
-.modal-content h2 { margin-top: 0; color: var(--primary-indigo); font-size: 1.1rem; }
-.disclaimer { font-size: 0.8rem; color: #92400e; background-color: #fffbeb; padding: 10px; border-radius: var(--radius-input); margin-top: 10px; border-left: 3px solid #d97706; }
-.modal-close-btn { width: 100%; padding: 12px; margin-top: 15px; background-color: var(--surface-white); color: var(--primary-indigo); border: 1px solid var(--border-light); border-radius: var(--radius-input); font-weight: 600; cursor: pointer; }
+.modal-content h2 { margin-top: 0; color: var(--primary-amber); font-size: 1.1rem; }
+.disclaimer { font-size: 0.8rem; color: #92400e; background-color: #fffbeb; padding: 10px; border-radius: var(--radius-input); margin-top: 10px; border-left: 3px solid var(--primary-amber); }
+.modal-close-btn { width: 100%; padding: 12px; margin-top: 15px; background-color: var(--surface-white); color: var(--primary-amber); border: 1px solid var(--border-light); border-radius: var(--radius-input); font-weight: 600; cursor: pointer; }
 
 /* =========================================
    Entwickler-Features (Fadenkreuz + Skala)

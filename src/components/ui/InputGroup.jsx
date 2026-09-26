@@ -1,13 +1,13 @@
 export const InputGroup = ({ id, label, value, unit, onChange, highlight = false, stacked = false }) => (
     <div className={`input-group ${!label ? 'no-label' : ''} ${stacked ? 'stacked' : ''}`}>
         {label && (
-            <label htmlFor={id} style={highlight ? { color: 'var(--primary-indigo)' } : {}}>
+            <label htmlFor={id} style={highlight ? { color: 'var(--primary-amber)' } : {}}>
                 {label}
             </label>
         )}
         <div className="input-wrapper">
             {stacked && (
-                <span className="unit" style={highlight ? { color: 'var(--primary-indigo)' } : {}}>
+                <span className="unit" style={highlight ? { color: 'var(--primary-amber)' } : {}}>
                     {unit}
                 </span>
             )}
@@ -25,10 +25,10 @@ export const InputGroup = ({ id, label, value, unit, onChange, highlight = false
                 placeholder="0"
                 step="any"
                 inputMode="decimal"
-                style={highlight ? { color: 'var(--primary-indigo)', fontWeight: 600 } : {}}
+                style={highlight ? { color: 'var(--primary-amber)', fontWeight: 600 } : {}}
             />
             {!stacked && (
-                <span className="unit" style={highlight ? { color: 'var(--primary-indigo)' } : {}}>
+                <span className="unit" style={highlight ? { color: 'var(--primary-amber)' } : {}}>
                     {unit}
                 </span>
             )}

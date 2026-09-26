@@ -107,7 +107,7 @@ export default function App() {
                         onClick={handleTitleClick} 
                         style={{ cursor: 'pointer', userSelect: 'none', touchAction: 'manipulation' }}
                     >
-                        Perfusor Indigo Test App
+                        Moe's Perfusor Rechner
                     </h1>
                     
                     <div className="header-buttons">
