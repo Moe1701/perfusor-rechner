@@ -63,26 +63,27 @@ src/
 <files>
 This section contains the contents of the repository's files.
 
+<file path="src/components/ui/Tile.jsx">
+export const Tile = ({ title, highlight, children }) => (
+    <div className={`tile ${highlight ? 'tile-highlight' : ''}`}>
+        {title && <div className="tile-title">{title}</div>}
+        {children}
+    </div>
+);
+</file>
+
 <file path="src/components/calculator/BaseDataSection.jsx">
 import { InputGroup } from '../ui/InputGroup';
 
-export const BaseDataSection = ({ baseData, onChange, concentration }) => (
+export const BaseDataSection = ({ baseData, onChange }) => (
     <div className="section">
         <div className="section-title">1. Basisdaten</div>
-        <InputGroup 
-            id="med-mg" label="Wirkstoff" value={baseData.mg} unit="mg" 
-            onChange={(val) => onChange('mg', val)} 
-        />
-        <InputGroup 
-            id="vol-ml" label="Volumen" value={baseData.ml} unit="ml" 
-            onChange={(val) => onChange('ml', val)} 
-        />
-        <InputGroup 
-            id="weight-kg" label="Gewicht" value={baseData.weight} unit="kg" 
-            onChange={(val) => onChange('weight', val)} 
-        />
-        <div className="info-box">
-            Konzentration: {concentration > 0 ? `${concentration.toFixed(1)} µg/ml` : '-- µg/ml'}
+        <InputGroup id="med-mg" label="Wirkstoff" value={baseData.mg} unit="mg" onChange={(val) => onChange('mg', val)} />
+        <InputGroup id="vol-ml" label="Volumen" value={baseData.ml} unit="ml" onChange={(val) => onChange('ml', val)} />
+        <InputGroup id="weight-kg" label="Gewicht" value={baseData.weight} unit="kg" onChange={(val) => onChange('weight', val)} />
+        {/* Die Konzentration ist jetzt ein direkt editierbares Feld! */}
+        <div style={{ marginTop: '12px' }}>
+            <InputGroup id="conc-mcgml" label="Konz." value={baseData.concentration} unit="µg/ml" onChange={(val) => onChange('concentration', val)} highlight />
         </div>
     </div>
 );
@@ -96,49 +97,35 @@ export const RatesSection = ({ rates, onChange }) => (
     <div className="section">
         <div className="section-title">2. Zielwert / Laufrate</div>
         <Tile highlight>
-            <InputGroup 
-                id="rate-mlh" label="Laufrate" value={rates.mlh} unit="ml/h" 
-                onChange={(val) => onChange('mlh', val)} highlight 
-            />
+            <InputGroup id="rate-mlh" label="Laufrate" value={rates.mlh} unit="ml/h" onChange={(val) => onChange('mlh', val)} highlight />
         </Tile>
-        <Tile title="Pro KG Körpergewicht">
-            <InputGroup 
-                id="rate-mgkgh" label="Dosis" value={rates.mgKgH} unit="mg/kg/h" 
-                onChange={(val) => onChange('mgKgH', val)} 
-            />
-            <InputGroup 
-                id="rate-mgkgmin" label="Dosis" value={rates.mgKgMin} unit="mg/kg/min" 
-                onChange={(val) => onChange('mgKgMin', val)} 
-            />
-            <InputGroup 
-                id="rate-mcgkgmin" label="Dosis" value={rates.mcgKgMin} unit="µg/kg/min" 
-                onChange={(val) => onChange('mcgKgMin', val)} 
-            />
-        </Tile>
-        <Tile title="Gesamtdosis (Absolut)">
-            <InputGroup 
-                id="rate-mgh" label="Dosis" value={rates.mgH} unit="mg/h" 
-                onChange={(val) => onChange('mgH', val)} 
-            />
-            <InputGroup 
-                id="rate-mcgh" label="Dosis" value={rates.mcgH} unit="µg/h" 
-                onChange={(val) => onChange('mcgH', val)} 
-            />
-            <InputGroup 
-                id="rate-mcgmin" label="Dosis" value={rates.mcgMin} unit="µg/min" 
-                onChange={(val) => onChange('mcgMin', val)} 
-            />
-        </Tile>
+        
+        {/* Neues Grid-Layout für Side-by-Side Kacheln */}
+        <div className="rates-grid">
+            <Tile title="Pro KG Körpergewicht">
+                <InputGroup id="rate-mgkgh" value={rates.mgKgH} unit="mg/kg/h" onChange={(val) => onChange('mgKgH', val)} />
+                <InputGroup id="rate-mgkgmin" value={rates.mgKgMin} unit="mg/kg/min" onChange={(val) => onChange('mgKgMin', val)} />
+                <InputGroup id="rate-mcgkgmin" value={rates.mcgKgMin} unit="µg/kg/min" onChange={(val) => onChange('mcgKgMin', val)} />
+            </Tile>
+            
+            <Tile title="Gesamtdosis (Absolut)">
+                <InputGroup id="rate-mgh" value={rates.mgH} unit="mg/h" onChange={(val) => onChange('mgH', val)} />
+                <InputGroup id="rate-mcgh" value={rates.mcgH} unit="µg/h" onChange={(val) => onChange('mcgH', val)} />
+                <InputGroup id="rate-mcgmin" value={rates.mcgMin} unit="µg/min" onChange={(val) => onChange('mcgMin', val)} />
+            </Tile>
+        </div>
     </div>
 );
 </file>
 
 <file path="src/components/ui/InputGroup.jsx">
 export const InputGroup = ({ id, label, value, unit, onChange, highlight = false }) => (
-    <div className="input-group">
-        <label htmlFor={id} style={highlight ? { color: 'var(--primary-red)' } : {}}>
-            {label}
-        </label>
+    <div className={`input-group ${!label ? 'no-label' : ''}`}>
+        {label && (
+            <label htmlFor={id} style={highlight ? { color: 'var(--primary-red)' } : {}}>
+                {label}
+            </label>
+        )}
         <div className="input-wrapper">
             <input
                 type="number"
@@ -156,227 +143,6 @@ export const InputGroup = ({ id, label, value, unit, onChange, highlight = false
         </div>
     </div>
 );
-</file>
-
-<file path="src/components/ui/Tile.jsx">
-export const Tile = ({ title, highlight, children }) => (
-    <div className={`tile ${highlight ? 'tile-highlight' : ''}`}>
-        {title && <div className="tile-title">{title}</div>}
-        {children}
-    </div>
-);
-</file>
-
-<file path="src/hooks/usePerfusor.js">
-import { useState, useEffect } from 'react';
-import { calculateConcentration, calculateRatesFromMlh, formatNumber } from '../utils/mathUtils';
-
-export const usePerfusor = () => {
-    // 1. Basisdaten
-    const [baseData, setBaseData] = useState({
-        mg: '',
-        ml: '50',
-        weight: '75'
-    });
-
-    // 2. Raten-Daten
-    const [rates, setRates] = useState({
-        mlh: '',
-        mgKgH: '',
-        mgKgMin: '',
-        mcgKgMin: '',
-        mgH: '',
-        mcgH: '',
-        mcgMin: ''
-    });
-
-    // Berechnete Konzentration (abgeleiteter State)
-    const concentration = calculateConcentration(baseData.mg, baseData.ml);
-
-    // Funktion zum Aktualisieren der Basisdaten
-    const handleBaseDataChange = (field, value) => {
-        setBaseData(prev => ({ ...prev, [field]: value }));
-    };
-
-    // Die Kern-Synchronisations-Logik
-    const handleRateChange = (sourceField, value) => {
-        const val = parseFloat(value);
-        const weight = parseFloat(baseData.weight) || 0;
-
-        // Wenn Feld geleert wird oder ungültig ist
-        if (value === '' || isNaN(val) || concentration <= 0) {
-            setRates({
-                mlh: sourceField === 'mlh' ? value : '',
-                mgKgH: sourceField === 'mgKgH' ? value : '',
-                mgKgMin: sourceField === 'mgKgMin' ? value : '',
-                mcgKgMin: sourceField === 'mcgKgMin' ? value : '',
-                mgH: sourceField === 'mgH' ? value : '',
-                mcgH: sourceField === 'mcgH' ? value : '',
-                mcgMin: sourceField === 'mcgMin' ? value : ''
-            });
-            return;
-        }
-
-        // 1. Rechne den eingegebenen Wert immer erst in ml/h um
-        let mlh = 0;
-        switch (sourceField) {
-            case 'mlh': mlh = val; break;
-            case 'mgKgH': mlh = (val * weight * 1000) / concentration; break;
-            case 'mgKgMin': mlh = (val * weight * 60 * 1000) / concentration; break;
-            case 'mcgKgMin': mlh = (val * weight * 60) / concentration; break;
-            case 'mgH': mlh = (val * 1000) / concentration; break;
-            case 'mcgH': mlh = val / concentration; break;
-            case 'mcgMin': mlh = (val * 60) / concentration; break;
-            default: break;
-        }
-
-        // 2. Berechne alle anderen Werte basierend auf dem neuen ml/h Wert
-        const calculated = calculateRatesFromMlh(mlh, concentration, weight);
-
-        // 3. Setze den neuen State (das Quellfeld behält den genauen Input-String, um Tippfehler bei Kommas zu vermeiden)
-        setRates({
-            mlh: sourceField === 'mlh' ? value : formatNumber(mlh),
-            mgKgH: sourceField === 'mgKgH' ? value : formatNumber(calculated.mgKgH),
-            mgKgMin: sourceField === 'mgKgMin' ? value : formatNumber(calculated.mgKgMin),
-            mcgKgMin: sourceField === 'mcgKgMin' ? value : formatNumber(calculated.mcgKgMin),
-            mgH: sourceField === 'mgH' ? value : formatNumber(calculated.mgH),
-            mcgH: sourceField === 'mcgH' ? value : formatNumber(calculated.mcgH),
-            mcgMin: sourceField === 'mcgMin' ? value : formatNumber(calculated.mcgMin)
-        });
-    };
-
-    // Reagiert auf Änderungen der Basisdaten (Wenn Basisdaten sich ändern, rechne die Raten neu)
-    useEffect(() => {
-        if (concentration > 0 && rates.mlh !== '') {
-            // Simuliere eine Änderung am ml/h Feld, um alles neu zu berechnen
-            handleRateChange('mlh', rates.mlh);
-        } else if (concentration === 0) {
-            // Leere alle Felder, wenn Konzentration 0 wird
-            handleRateChange('mlh', '');
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [baseData.mg, baseData.ml, baseData.weight]);
-
-    const resetValues = () => {
-        setBaseData({ mg: '', ml: '50', weight: '75' });
-        setRates({ mlh: '', mgKgH: '', mgKgMin: '', mcgKgMin: '', mgH: '', mcgH: '', mcgMin: '' });
-    };
-
-    return {
-        baseData,
-        rates,
-        concentration,
-        handleBaseDataChange,
-        handleRateChange,
-        resetValues
-    };
-};
-</file>
-
-<file path="src/styles/globals.css">
-:root {
-    --primary-red: #d32f2f;
-    --surface-white: #ffffff;
-    --bg-body: #f4f6f8;
-    --bg-tile: #fcfcfc;
-    --border-light: #eaeaea;
-    --text-dark: #2c3e50;
-    --text-muted: #7f8c8d;
-    --radius-card: 16px;
-    --radius-tile: 12px;
-    --radius-input: 8px;
-}
-
-* { box-sizing: border-box; }
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--bg-body);
-    color: var(--text-dark);
-    margin: 0;
-    padding: 10px; 
-    display: flex;
-    justify-content: center;
-    overscroll-behavior-y: none;
-}
-
-.calculator-card {
-    background: var(--surface-white);
-    border-radius: var(--radius-card);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    width: 100%;
-    max-width: 480px; 
-    overflow: hidden;
-}
-
-.header {
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--border-light);
-}
-
-.header h1 {
-    margin: 0;
-    font-size: 1.1rem;
-    font-weight: 500; 
-    color: var(--primary-red);
-    text-transform: uppercase;
-    text-align: center;
-    flex: 1;
-}
-
-.header-btn {
-    background: none;
-    border: 1px solid var(--border-light);
-    color: var(--text-muted);
-    padding: 6px 10px;
-    border-radius: 6px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    cursor: pointer;
-}
-
-.section { padding: 15px 20px; border-bottom: 1px solid var(--border-light); }
-.section:last-child { border-bottom: none; }
-.section-title { font-size: 0.85rem; text-transform: uppercase; color: var(--primary-red); font-weight: 500; margin-bottom: 15px; }
-
-.tile {
-    background-color: var(--bg-tile);
-    border-radius: var(--radius-tile);
-    padding: 15px;
-    margin-bottom: 15px;
-    border: 1px solid #f0f0f0;
-}
-.tile-highlight { background-color: #fff9f9; border: 1px solid #ffebeb; }
-.tile-title { font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: 500; margin-bottom: 12px; text-align: center; }
-
-.input-group { margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
-.input-group label { font-size: 1.35rem; font-weight: 500; flex: 1; }
-.input-wrapper { display: flex; align-items: center; flex: 2; max-width: 240px; }
-.input-wrapper input {
-    width: 100%;
-    font-size: 22px; 
-    font-weight: 500;
-    padding: 12px 14px; 
-    border: 1px solid var(--border-light); 
-    border-radius: var(--radius-input);
-    text-align: right;
-    background-color: var(--surface-white);
-    color: var(--text-dark);
-}
-.input-wrapper input:focus { outline: none; border-color: #ffbaba; box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.05); }
-.unit { margin-left: 12px; font-size: 1.15rem; font-weight: 500; color: var(--text-muted); width: 100px; flex-shrink: 0; }
-
-.info-box { font-size: 1.1rem; color: white; background-color: var(--primary-red); margin-top: 20px; padding: 12px; text-align: center; font-weight: 500; border-radius: var(--radius-tile); }
-
-.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.4); display: flex; justify-content: center; align-items: center; z-index: 1000; padding: 20px; backdrop-filter: blur(4px); }
-.modal-content { background-color: var(--surface-white); border-radius: var(--radius-card); padding: 25px; max-width: 400px; width: 100%; }
-.modal-content h2 { margin-top: 0; color: var(--primary-red); font-size: 1.2rem; }
-.disclaimer { font-size: 0.85rem; color: var(--text-muted); background-color: var(--bg-body); padding: 12px; border-radius: var(--radius-input); margin-top: 15px; border-left: 3px solid var(--primary-red); }
-.modal-close-btn { width: 100%; padding: 14px; margin-top: 20px; background-color: var(--surface-white); border: 1px solid var(--border-light); border-radius: var(--radius-input); font-weight: 500; cursor: pointer; }
 </file>
 
 <file path="src/utils/mathUtils.js">
@@ -421,8 +187,129 @@ export const formatNumber = (num) => {
 };
 </file>
 
+<file path="src/hooks/usePerfusor.js">
+import { useState, useEffect } from 'react';
+import { calculateRatesFromMlh, formatNumber } from '../utils/mathUtils';
+
+export const usePerfusor = () => {
+    // 1. Basisdaten (Jetzt mit Konzentration als echtem State)
+    const [baseData, setBaseData] = useState({
+        mg: '',
+        ml: '50',
+        weight: '75',
+        concentration: '' 
+    });
+
+    // 2. Raten-Daten
+    const [rates, setRates] = useState({
+        mlh: '', mgKgH: '', mgKgMin: '', mcgKgMin: '', mgH: '', mcgH: '', mcgMin: ''
+    });
+
+    const activeConcentration = parseFloat(baseData.concentration) || 0;
+
+    const handleBaseDataChange = (field, value) => {
+        const newBase = { ...baseData, [field]: value };
+        
+        // Magie: Bidirektionale Aktualisierung von Wirkstoff und Konzentration!
+        if (field === 'mg' || field === 'ml') {
+            const mg = parseFloat(newBase.mg);
+            const ml = parseFloat(newBase.ml);
+            if (!isNaN(mg) && !isNaN(ml) && ml > 0) {
+                newBase.concentration = ((mg * 1000) / ml).toString();
+            } else {
+                newBase.concentration = '';
+            }
+        } else if (field === 'concentration') {
+            const conc = parseFloat(newBase.concentration);
+            const ml = parseFloat(newBase.ml);
+            if (!isNaN(conc) && !isNaN(ml) && ml > 0) {
+                newBase.mg = ((conc * ml) / 1000).toString();
+            } else {
+                newBase.mg = '';
+            }
+        }
+        
+        setBaseData(newBase);
+    };
+
+    const handleRateChange = (sourceField, value) => {
+        const val = parseFloat(value);
+        const weight = parseFloat(baseData.weight) || 0;
+
+        if (value === '' || isNaN(val) || activeConcentration <= 0) {
+            setRates({
+                mlh: sourceField === 'mlh' ? value : '',
+                mgKgH: sourceField === 'mgKgH' ? value : '',
+                mgKgMin: sourceField === 'mgKgMin' ? value : '',
+                mcgKgMin: sourceField === 'mcgKgMin' ? value : '',
+                mgH: sourceField === 'mgH' ? value : '',
+                mcgH: sourceField === 'mcgH' ? value : '',
+                mcgMin: sourceField === 'mcgMin' ? value : ''
+            });
+            return;
+        }
+
+        let mlh = 0;
+        switch (sourceField) {
+            case 'mlh': mlh = val; break;
+            case 'mgKgH': mlh = (val * weight * 1000) / activeConcentration; break;
+            case 'mgKgMin': mlh = (val * weight * 60 * 1000) / activeConcentration; break;
+            case 'mcgKgMin': mlh = (val * weight * 60) / activeConcentration; break;
+            case 'mgH': mlh = (val * 1000) / activeConcentration; break;
+            case 'mcgH': mlh = val / activeConcentration; break;
+            case 'mcgMin': mlh = (val * 60) / activeConcentration; break;
+            default: break;
+        }
+
+        const calculated = calculateRatesFromMlh(mlh, activeConcentration, weight);
+
+        setRates({
+            mlh: sourceField === 'mlh' ? value : formatNumber(mlh),
+            mgKgH: sourceField === 'mgKgH' ? value : formatNumber(calculated.mgKgH),
+            mgKgMin: sourceField === 'mgKgMin' ? value : formatNumber(calculated.mgKgMin),
+            mcgKgMin: sourceField === 'mcgKgMin' ? value : formatNumber(calculated.mcgKgMin),
+            mgH: sourceField === 'mgH' ? value : formatNumber(calculated.mgH),
+            mcgH: sourceField === 'mcgH' ? value : formatNumber(calculated.mcgH),
+            mcgMin: sourceField === 'mcgMin' ? value : formatNumber(calculated.mcgMin)
+        });
+    };
+
+    // Reagiert auf Änderungen der Konzentration oder des Gewichts
+    useEffect(() => {
+        if (activeConcentration > 0 && rates.mlh !== '') {
+            handleRateChange('mlh', rates.mlh);
+        } else if (activeConcentration === 0) {
+            handleRateChange('mlh', '');
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [baseData.concentration, baseData.weight]);
+
+    const resetValues = () => {
+        setBaseData({ mg: '', ml: '50', weight: '75', concentration: '' });
+        setRates({ mlh: '', mgKgH: '', mgKgMin: '', mcgKgMin: '', mgH: '', mcgH: '', mcgMin: '' });
+    };
+
+    return {
+        baseData, rates, handleBaseDataChange, handleRateChange, resetValues
+    };
+};
+</file>
+
+<file path="src/main.jsx">
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './styles/globals.css';
+import App from './App.jsx';
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+);
+</file>
+
 <file path="src/App.jsx">
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { usePerfusor } from './hooks/usePerfusor';
 import { BaseDataSection } from './components/calculator/BaseDataSection';
 import { RatesSection } from './components/calculator/RatesSection';
@@ -430,9 +317,78 @@ import { RatesSection } from './components/calculator/RatesSection';
 export default function App() {
     const { baseData, rates, concentration, handleBaseDataChange, handleRateChange, resetValues } = usePerfusor();
     const [showModal, setShowModal] = useState(false);
+    
+    // Developer Features State & Refs
+    const [showCrosshair, setShowCrosshair] = useState(false);
+    const clickCount = useRef(0);
+    const clickTimer = useRef(null);
+
+    const performHardReset = async () => {
+        alert("Hard Reset eingeleitet: Alle Caches und lokalen Daten werden gelöscht...");
+        
+        // 1. Local und Session Storage leeren
+        localStorage.clear();
+        sessionStorage.clear();
+
+        // 2. PWA Caches leeren
+        if ('caches' in window) {
+            try {
+                const cacheNames = await caches.keys();
+                await Promise.all(cacheNames.map(name => caches.delete(name)));
+            } catch (e) {
+                console.error("Cache konnte nicht geleert werden", e);
+            }
+        }
+
+        // 3. Service Worker abmelden (zwingt die PWA beim Neuladen zum Download der neuesten Version)
+        if ('serviceWorker' in navigator) {
+            try {
+                const registrations = await navigator.serviceWorker.getRegistrations();
+                for (let reg of registrations) {
+                    await reg.unregister();
+                }
+            } catch (e) {
+                console.error("Service Worker Fehler", e);
+            }
+        }
+
+        // 4. Harten Reload erzwingen
+        window.location.reload(true);
+    };
+
+    const handleTitleClick = () => {
+        clickCount.current += 1;
+
+        // Timer zurücksetzen, damit Klicks schnell hintereinander erfolgen müssen
+        if (clickTimer.current) clearTimeout(clickTimer.current);
+
+        clickTimer.current = setTimeout(() => {
+            clickCount.current = 0; // Reset nach 600ms Pause
+        }, 600);
+
+        // 3 Klicks: Fadenkreuz umschalten
+        if (clickCount.current === 3) {
+            setShowCrosshair(prev => !prev);
+        }
+
+        // 5 Klicks: Hard Reset
+        if (clickCount.current === 5) {
+            clickCount.current = 0; 
+            performHardReset();
+        }
+    };
 
     return (
         <>
+            {/* Entwickler-Fadenkreuz */}
+            {showCrosshair && (
+                <div className="crosshair-wrapper">
+                    <div className="crosshair-x"></div>
+                    <div className="crosshair-y"></div>
+                    <div className="crosshair-center">0/0</div>
+                </div>
+            )}
+
             {showModal && (
                 <div className="modal-overlay" onClick={() => setShowModal(false)}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -450,14 +406,21 @@ export default function App() {
             <div className="calculator-card">
                 <div className="header">
                     <button className="header-btn" onClick={() => setShowModal(true)}>Info</button>
-                    <h1>Laufratenrechner</h1>
+                    
+                    {/* Der geheime Button (App-Name) */}
+                    <h1 
+                        onClick={handleTitleClick} 
+                        style={{ cursor: 'pointer', userSelect: 'none', touchAction: 'manipulation' }}
+                    >
+                        Moe's Perfusor Rechner
+                    </h1>
+                    
                     <button className="header-btn" onClick={resetValues}>Reset</button>
                 </div>
 
                 <BaseDataSection 
                     baseData={baseData} 
                     onChange={handleBaseDataChange} 
-                    concentration={concentration} 
                 />
                 
                 <RatesSection 
@@ -470,17 +433,119 @@ export default function App() {
 }
 </file>
 
-<file path="src/main.jsx">
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import "./styles/globals.css";
-import App from './App.jsx'
+<file path="src/styles/globals.css">
+/* =========================================
+   Entwickler-Features (Fadenkreuz)
+   ========================================= */
+.crosshair-wrapper {
+    pointer-events: none; /* Verhindert, dass das Fadenkreuz Klicks blockiert */
+    z-index: 9999;
+}
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+<<<<<<< HEAD
+* { box-sizing: border-box; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-dark);
+    margin: 0;
+    padding: 5px; /* Kompakte Abstände */
+    display: flex;
+    justify-content: center;
+    overscroll-behavior-y: none;
+=======
+.crosshair-x {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    width: 100vw;
+    height: 1px;
+    background-color: rgba(0, 255, 0, 0.6); /* Hacker-Grün für starken Kontrast */
+>>>>>>> bffceee70aa7524abf17265149aa94b73e96d028
+}
+
+.crosshair-y {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 100vh;
+    background-color: rgba(0, 255, 0, 0.6);
+}
+
+.crosshair-center {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #00ff00;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 11px;
+    margin-top: 15px; /* Leicht versetzt, damit der echte Nullpunkt sichtbar bleibt */
+}
+<<<<<<< HEAD
+.input-wrapper input:focus { outline: none; border-color: #ffbaba; box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.05); }
+
+.unit { margin-left: 6px; font-size: 0.95rem; font-weight: 500; color: var(--text-muted); flex: 0 0 75px; }
+
+/* Schriftgrößen-Anpassung für die Grid-Kacheln */
+.rates-grid .input-wrapper input { font-size: 16px; padding: 8px 4px; }
+.rates-grid .unit { font-size: 0.75rem; flex: 0 0 55px; margin-left: 4px; }
+.rates-grid .input-group { flex-direction: column; align-items: stretch; gap: 2px; margin-bottom: 10px; }
+.rates-grid .input-wrapper { flex-direction: row; }
+
+/* Info Modal bleibt gleich */
+.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.4); display: flex; justify-content: center; align-items: center; z-index: 1000; padding: 20px; backdrop-filter: blur(4px); }
+.modal-content { background-color: var(--surface-white); border-radius: var(--radius-card); padding: 20px; max-width: 400px; width: 100%; }
+.modal-content h2 { margin-top: 0; color: var(--primary-red); font-size: 1.1rem; }
+.disclaimer { font-size: 0.8rem; color: var(--text-muted); background-color: var(--bg-body); padding: 10px; border-radius: var(--radius-input); margin-top: 10px; border-left: 3px solid var(--primary-red); }
+.modal-close-btn { width: 100%; padding: 12px; margin-top: 15px; background-color: var(--surface-white); border: 1px solid var(--border-light); border-radius: var(--radius-input); font-weight: 500; cursor: pointer; }
+
+/* =========================================
+   Entwickler-Features (Fadenkreuz)
+   ========================================= */
+.crosshair-wrapper {
+    pointer-events: none; /* Verhindert, dass das Fadenkreuz Klicks blockiert */
+    z-index: 9999;
+}
+
+.crosshair-x {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    width: 100vw;
+    height: 1px;
+    background-color: rgba(0, 255, 0, 0.6); /* Hacker-Grün für starken Kontrast */
+}
+
+.crosshair-y {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 100vh;
+    background-color: rgba(0, 255, 0, 0.6);
+}
+
+.crosshair-center {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #00ff00;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 11px;
+    margin-top: 15px; /* Leicht versetzt, damit der echte Nullpunkt sichtbar bleibt */
+}
+=======
+>>>>>>> bffceee70aa7524abf17265149aa94b73e96d028
 </file>
 
 </files>

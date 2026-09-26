@@ -10,6 +10,8 @@ Projektstruktur:
 ├── package.json
 ├── public
 │   ├── favicon.svg
+│   ├── icon-192.png
+│   ├── icon-512.png
 │   └── icons.svg
 ├── README.md
 ├── repomix und structure.txt
@@ -33,4 +35,5 @@ Projektstruktur:
 │   │   └── globals.css
 │   └── utils
 │       └── mathUtils.js
+├── structure.txt
 └── vite.config.js
